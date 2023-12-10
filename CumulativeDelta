@@ -84,7 +84,7 @@ void Calculate()
 
 int WriteLastWithoutCalculation()
 {
-  WriteToArray(0, iCustom(NULL, 0, "ClusterDelta_#Delta", "", "AUTO", "AUTO", 0, bars_calc));
+  WriteToArray(bars_calc-1, iCustom(NULL, 0, "ClusterDelta_#Delta", "", "AUTO", "AUTO", 0, bars_calc));
 
   return bars_calc - 1;
 }
