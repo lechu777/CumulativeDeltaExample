@@ -63,9 +63,9 @@ int OnCalculate(const int rates_total,
 
 void Calculate()
 {
-  int barsToCalculate = WriteLastWithoutCalculation();
+  int remainingBarsToCalculate = WriteLastWithoutCalculation();
 
-  for(int i = barsToCalculate; i > 0; i--)
+  for(int i = remainingBarsToCalculate; i > 0; i--)
   {
     double delta = iCustom(NULL, 0, "ClusterDelta_#Delta", "", "AUTO", "AUTO", 0, i);
 
