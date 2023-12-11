@@ -22,6 +22,7 @@
 input int bars_calc = 500;
 
 double cDeltaUp[], cDeltaDown[];
+datetime oldTime;
 
 int OnInit()
 {
@@ -63,6 +64,15 @@ int OnCalculate(const int rates_total,
 
 void Calculate()
 {
+  if (IsCurrentBar())
+  {
+    CalculateCurrentBarOnly();
+
+    return;
+  }  
+
+  return; 
+
   int remainingBarsToCalculate = WriteLastWithoutCalculation();
 
   for(int i = remainingBarsToCalculate; i > 0; i--)
@@ -82,9 +92,38 @@ void Calculate()
   };
 }
 
+bool IsCurrentBar()
+{
+  if(oldTime == iTime(_Symbol, PERIOD_CURRENT, 0))
+  {    
+    return true;
+  };
+
+  oldTime = iTime(_Symbol,PERIOD_CURRENT,0);
+
+  return false;
+}
+
+void CalculateCurrentBarOnly()
+{
+  double delta = iCustom(NULL, 0, "ClusterDelta_#Delta", "", "AUTO", "AUTO", 0, 0);
+
+  double cDeltaFromPreviousBar = cDeltaUp[1];
+
+  if (cDeltaFromPreviousBar == 0)
+  {
+    cDeltaFromPreviousBar = cDeltaDown[1];
+  }
+
+  double cDelta = cDeltaFromPreviousBar + delta;
+
+  WriteToArray(0, cDelta);
+}
+
 int WriteLastWithoutCalculation()
 {
   int lastIndex = bars_calc - 1;
+
   WriteToArray(lastIndex, iCustom(NULL, 0, "ClusterDelta_#Delta", "", "AUTO", "AUTO", 0, lastIndex));
 
   return lastIndex - 1;
@@ -95,6 +134,7 @@ void WriteToArray(int index, double cDelta)
   if (cDelta > 0)
   {
     cDeltaUp[index] = cDelta;
+
     return;
   }
 
