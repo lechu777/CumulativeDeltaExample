@@ -74,7 +74,7 @@ bool IsCurrentBar()
   if(currentBarTime == iTime(_Symbol, PERIOD_CURRENT, 0))
   {    
     return true;
-  };
+  }
 
   currentBarTime = iTime(_Symbol,PERIOD_CURRENT,0);
 
