@@ -34,14 +34,14 @@ int OnInit()
 
   IndicatorBuffers(2);
 
-  SetIndexBuffer(0,cDeltaUp,INDICATOR_DATA);
-  SetIndexStyle(0,DRAW_HISTOGRAM,STYLE_SOLID,3,clrGreen);
+  SetIndexBuffer(0, cDeltaUp, INDICATOR_DATA);
+  SetIndexStyle(0, DRAW_HISTOGRAM,STYLE_SOLID, 3, clrGreen);
 
-  SetIndexBuffer(1,cDeltaDown,INDICATOR_DATA);
-  SetIndexStyle(1,DRAW_HISTOGRAM,STYLE_SOLID,3,clrRed);
+  SetIndexBuffer(1, cDeltaDown,INDICATOR_DATA);
+  SetIndexStyle(1, DRAW_HISTOGRAM,STYLE_SOLID, 3, clrRed);
 
-  ArraySetAsSeries(cDeltaUp,true);
-  ArraySetAsSeries(cDeltaDown,true);
+  ArraySetAsSeries(cDeltaUp, true);
+  ArraySetAsSeries(cDeltaDown, true);
 
   return(INIT_SUCCEEDED);
 }
@@ -71,12 +71,12 @@ int OnCalculate(const int rates_total,
 
 bool IsCurrentBar()
 {
-  if(currentBarTime == iTime(_Symbol, PERIOD_CURRENT, 0))
+  if (currentBarTime == iTime(_Symbol, PERIOD_CURRENT, 0))
   {    
     return true;
   }
 
-  currentBarTime = iTime(_Symbol,PERIOD_CURRENT,0);
+  currentBarTime = iTime(_Symbol, PERIOD_CURRENT, 0);
 
   return false;
 }
@@ -105,11 +105,11 @@ void RecalculateAllBars()
   {
     double delta = iCustom(NULL, 0, "ClusterDelta_#Delta", "", "AUTO", "AUTO", 0, i);
 
-    double cDeltaFromPreviousBar = cDeltaUp[i+1];
+    double cDeltaFromPreviousBar = cDeltaUp[i + 1];
 
     if (cDeltaFromPreviousBar == 0)
     {
-      cDeltaFromPreviousBar = cDeltaDown[i+1];
+      cDeltaFromPreviousBar = cDeltaDown[i + 1];
     }
 
     double cDelta = cDeltaFromPreviousBar + delta;
