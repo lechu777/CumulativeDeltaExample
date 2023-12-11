@@ -71,8 +71,6 @@ void Calculate()
     return;
   }  
 
-  return; 
-
   int remainingBarsToCalculate = WriteLastWithoutCalculation();
 
   for(int i = remainingBarsToCalculate; i > 0; i--)
