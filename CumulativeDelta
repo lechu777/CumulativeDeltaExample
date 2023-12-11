@@ -22,7 +22,7 @@
 input int bars_calc = 500;
 
 double cDeltaUp[], cDeltaDown[];
-datetime oldTime;
+datetime lastBarTime;
 
 int OnInit()
 {
@@ -92,12 +92,12 @@ void Calculate()
 
 bool IsCurrentBar()
 {
-  if(oldTime == iTime(_Symbol, PERIOD_CURRENT, 0))
+  if(lastBarTime == iTime(_Symbol, PERIOD_CURRENT, 0))
   {    
     return true;
   };
 
-  oldTime = iTime(_Symbol,PERIOD_CURRENT,0);
+  lastBarTime = iTime(_Symbol,PERIOD_CURRENT,0);
 
   return false;
 }
